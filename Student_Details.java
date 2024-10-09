@@ -1,3 +1,5 @@
+//Segrigating Students Based on Percentage Scored
+
 import java.util.Scanner;
 
 public class Student_Details

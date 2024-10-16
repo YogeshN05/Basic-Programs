@@ -9,7 +9,7 @@ public class AddMatrics
         System.out.print("Enter the number of rows: ");
         row=s.nextInt();
 
-        
+        // This is the sample line added to checj the differences.
         System.out.print("Enter the number of columns: ");
         col=s.nextInt();
 

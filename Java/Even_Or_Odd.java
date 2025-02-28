@@ -12,7 +12,6 @@ public class Even_Or_Odd {
         else{
             System.out.println("The number is odd");
         }
-        s.close();
 
     }
     

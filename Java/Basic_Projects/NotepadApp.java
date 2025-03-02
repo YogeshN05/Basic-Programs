@@ -1,53 +1,62 @@
-package Basic_Projects;
+//Create a simple Notepad application using Java Swing. The application should have the following features:
+//1. A text area to write text. 
+//2. A menu bar with the following options:
+//   a. File: Open, Save, Save As, Close, Quit
+//   b. Edit: Undo, Redo, Cut, Copy, Paste, Find, Replace
+//3. Implement the functionality of the menu items using appropriate event listeners.
+//4. Implement the Find and Replace functionality using JOptionPane.
+
+
+package Basic_Projects; 
 import javax.swing.*;
 import javax.swing.undo.UndoManager;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
-public class NotepadApp extends JFrame {
-    private JTextArea textArea;
-    private JFileChooser fileChooser;
-    private File currentFile;
+public class NotepadApp extends JFrame { 
+    private JTextArea textArea; 
+    private JFileChooser fileChooser; 
+    private File currentFile; 
     private UndoManager undoManager;
 
     public NotepadApp() {
-        setTitle("Notepad");
-        setSize(800, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setTitle("Notepad"); // Set the title of the window
+        setSize(800, 600);  // Set the size of the window
+        setDefaultCloseOperation(EXIT_ON_CLOSE); // Set the default close operation
+        setLocationRelativeTo(null); // Center the window on the screen
 
-        textArea = new JTextArea();
-        undoManager = new UndoManager();
-        textArea.getDocument().addUndoableEditListener(undoManager);
-        add(new JScrollPane(textArea), BorderLayout.CENTER);
+        textArea = new JTextArea();    // Create a new text area
+        undoManager = new UndoManager(); // Create a new undo manager
+        textArea.getDocument().addUndoableEditListener(undoManager); // Add the undo manager to the text area
+        add(new JScrollPane(textArea), BorderLayout.CENTER); // Add the text area to the center of the window
 
-        fileChooser = new JFileChooser();
+        fileChooser = new JFileChooser(); // Create a new file chooser
 
-        JMenuBar menuBar = new JMenuBar();
-        setJMenuBar(menuBar);
+        JMenuBar menuBar = new JMenuBar(); // Create a new menu bar
+        setJMenuBar(menuBar);  // Set the menu bar for the window
 
-        JMenu fileMenu = new JMenu("File");
-        JMenu editMenu = new JMenu("Edit");
-        menuBar.add(fileMenu);
-        menuBar.add(editMenu);
+        JMenu fileMenu = new JMenu("File"); // Create a new file menu
+        JMenu editMenu = new JMenu("Edit"); // Create a new edit menu
+        menuBar.add(fileMenu);  // Add the file menu to the menu bar
+        menuBar.add(editMenu);  // Add the edit menu to the menu bar
 
         // File Menu Items
-        JMenuItem openItem = new JMenuItem("Open");
-        JMenuItem saveItem = new JMenuItem("Save");
-        JMenuItem saveAsItem = new JMenuItem("Save As");
-        JMenuItem closeItem = new JMenuItem("Close");
-        JMenuItem quitItem = new JMenuItem("Quit");
+        JMenuItem openItem = new JMenuItem("Open");  // Create a new menu item
+        JMenuItem saveItem = new JMenuItem("Save"); // Create a new menu item
+        JMenuItem saveAsItem = new JMenuItem("Save As");    // Create a new menu item
+        JMenuItem closeItem = new JMenuItem("Close");   // Create a new menu item
+        JMenuItem quitItem = new JMenuItem("Quit"); 
 
-        fileMenu.add(openItem);
+        fileMenu.add(openItem); // Add the menu item to the file menu
         fileMenu.add(saveItem);
         fileMenu.add(saveAsItem);
         fileMenu.add(closeItem);
-        fileMenu.addSeparator();
+        fileMenu.addSeparator();    // Add a separator between menu items
         fileMenu.add(quitItem);
 
         // Edit Menu Items
-        JMenuItem undoItem = new JMenuItem("Undo");
+        JMenuItem undoItem = new JMenuItem("Undo");     
         JMenuItem redoItem = new JMenuItem("Redo");
         JMenuItem cutItem = new JMenuItem("Cut");
         JMenuItem copyItem = new JMenuItem("Copy");
@@ -73,26 +82,26 @@ public class NotepadApp extends JFrame {
         quitItem.addActionListener(e -> System.exit(0));
 
         // Edit Menu Actions
-        undoItem.addActionListener(e -> {
-            if (undoManager.canUndo()) undoManager.undo();
+        undoItem.addActionListener(e -> {   // Add an action listener to the menu item
+            if (undoManager.canUndo()) undoManager.undo();  // Check if undo is possible and undo the last edit
         });
         redoItem.addActionListener(e -> {
-            if (undoManager.canRedo()) undoManager.redo();
+            if (undoManager.canRedo()) undoManager.redo();  // Check if redo is possible and redo the last edit
         });
-        cutItem.addActionListener(e -> textArea.cut());
+        cutItem.addActionListener(e -> textArea.cut());     // Add an action listener to the menu item
         copyItem.addActionListener(e -> textArea.copy());
         pasteItem.addActionListener(e -> textArea.paste());
-        findItem.addActionListener(e -> findText());
+        findItem.addActionListener(e -> findText());    
         replaceItem.addActionListener(e -> replaceText());
     }
 
     private void openFile() {
-        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            currentFile = fileChooser.getSelectedFile();
-            try (BufferedReader reader = new BufferedReader(new FileReader(currentFile))) {
-                textArea.read(reader, null);
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {  // Show the open file dialog
+            currentFile = fileChooser.getSelectedFile();    // Get the selected file
+            try (BufferedReader reader = new BufferedReader(new FileReader(currentFile))) { // Create a buffered reader
+                textArea.read(reader, null);    // Read the file into the text area
+            } catch (IOException e) {   
+                e.printStackTrace();    // Print the stack trace of the exception
             }
         }
     }
@@ -143,11 +152,11 @@ public class NotepadApp extends JFrame {
         if (option == JOptionPane.OK_OPTION) {
             String find = findField.getText();
             String replace = replaceField.getText();
-            textArea.setText(textArea.getText().replace(find, replace));
+            textArea.setText(textArea.getText().replace(find, replace));    // Replace all occurrences of the text
         }
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new NotepadApp().setVisible(true));
+        SwingUtilities.invokeLater(() -> new NotepadApp().setVisible(true)); // Create a new instance of the NotepadApp class and make it visible
     }
-}
+}   

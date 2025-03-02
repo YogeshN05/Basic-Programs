@@ -101,7 +101,8 @@ LoginApp/
 
 1️⃣ Clone the Repository
 
-git clone https://github.com/your-username/LoginApp.git
+git clone https://github.com/YogeshN05/Basic-Programs/Java/Basic_Projects
+/LoginApp.git
 cd LoginApp
 
 2️⃣ Open in Android Studio
